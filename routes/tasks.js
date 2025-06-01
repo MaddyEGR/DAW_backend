@@ -1,11 +1,12 @@
 var express = require('express');
-const route = require('.');
+//const route = require('.');
 var router = express.Router();
+const mongoose = require('mongoose');
 
 let tasks = [{
     'id':'1',
     'name':'Tarea de 1',
-    'description':'Descropcion de la tarea 1',
+    'description':'Descripcion de la tarea 1',
     'dueDate':'2025-05-25'
 }];
 
@@ -37,8 +38,8 @@ router.delete('/removeTask/:id', function(req, res, next) {
 
 
 router.post('/addTask', function(req, res, next) {
-    let timestamp = Date.now() + Math.random();
-    if(req.body && req.body && req.body.name && req.body.description && req.body.description){
+    //let timestamp = Date.now() + Math.random();
+    if(req.body && req.body && req.body.name && req.body.description){
         const task = new taskInit(req.body);
         task.save().then(
             () => res.status(200).json(tasks)
