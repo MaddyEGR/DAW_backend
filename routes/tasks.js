@@ -38,21 +38,16 @@ router.delete('/removeTask/:id', function(req, res, next) {
 
 
 router.post('/addTask', function(req, res, next) {
-    //let timestamp = Date.now() + Math.random();
-    if(req.body && req.body && req.body.name && req.body.description){
-        const task = new taskInit(req.body);
-        task.save().then(
-            () => res.status(200).json(tasks)
-        ).catch(
-            (err)=>res.status(400).json(tasks)
-        );
-
-        
-    }else{
-        res.status(400).json(tasks);
-    }
-
-   // res.send('respond with a resource');
+  if(req.body && req.body.name && req.body.description){
+    const task = new taskInit(req.body);
+    task.save().then(savedTask => {
+      res.status(200).json(savedTask); // envía la tarea con _id
+    }).catch(err => {
+      res.status(400).json({ error: err.message });
+    });
+  } else {
+    res.status(400).json({ error: 'Faltan campos' });
+  }
 });
 
 module.exports = router;
